@@ -1,0 +1,10 @@
+name: Timbermod
+main: de.headshotharp.timbermod.Timbermod
+version: 2.1
+author: HeadShotHarp
+description: >
+             Timbermod for Minecraft Spigot Servers
+commands:
+  timber:
+    description: enable or disable Timbermod
+    usage: /timber <0/1/on/off>
