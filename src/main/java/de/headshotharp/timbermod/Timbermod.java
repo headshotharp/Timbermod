@@ -1,6 +1,7 @@
 package de.headshotharp.timbermod;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -19,12 +20,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Timbermod extends JavaPlugin implements Listener {
 	private PluginDescriptionFile pdf;
-	private ArrayList<User> users = new ArrayList<User>();
+	private List<User> users = new LinkedList<>();
 
 	public boolean contains(String name) {
 		for (User u : users) {
-			if (u.getName().equals(name))
+			if (u.getName().equals(name)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -37,8 +39,9 @@ public class Timbermod extends JavaPlugin implements Listener {
 
 	public User getUser(String name) {
 		for (User u : users) {
-			if (u.getName().equals(name))
+			if (u.getName().equals(name)) {
 				return u;
+			}
 		}
 		User u = new User(name);
 		users.add(u);
@@ -47,8 +50,9 @@ public class Timbermod extends JavaPlugin implements Listener {
 
 	public boolean hasTimber(String name) {
 		for (User u : users) {
-			if (u.getName().equals(name))
+			if (u.getName().equals(name)) {
 				return u.hasTimber();
+			}
 		}
 		return true;
 	}
@@ -107,9 +111,9 @@ public class Timbermod extends JavaPlugin implements Listener {
 	public void onBlockBreak(BlockBreakEvent event) {
 		if ((event.getPlayer().getInventory().getItemInMainHand().getType() == Material.IRON_AXE)
 				|| (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STONE_AXE)
-				|| (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOOD_AXE)
+				|| (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_AXE)
 				|| (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE)
-				|| (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.GOLD_AXE)) {
+				|| (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.GOLDEN_AXE)) {
 			if (hasTimber(event.getPlayer().getName())) {
 				if (isWood(event.getBlock().getType())) {
 					timberWoodAt(event.getBlock().getLocation());
@@ -133,46 +137,56 @@ public class Timbermod extends JavaPlugin implements Listener {
 	}
 
 	public void breakWood(Location loca) {
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() + 1);
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setZ(loca.getBlockZ() + 1);
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() - 1);
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() - 1);
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setZ(loca.getBlockZ() - 1);
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setZ(loca.getBlockZ() - 1);
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() + 1);
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() + 1);
-		if (isWood(loca.getBlock().getType()))
+		if (isWood(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() - 1);
 		loca.setZ(loca.getBlockZ() + 1);
 	}
 
 	public boolean isWood(Material mat) {
-		if (mat == Material.LOG || mat == Material.LOG_2)
-			return true;
-		return false;
+		return mat == Material.ACACIA_LOG || mat == Material.BIRCH_LOG || mat == Material.DARK_OAK_LOG
+				|| mat == Material.JUNGLE_LOG || mat == Material.OAK_LOG || mat == Material.SPRUCE_LOG
+				|| mat == Material.STRIPPED_ACACIA_LOG || mat == Material.STRIPPED_BIRCH_LOG
+				|| mat == Material.STRIPPED_DARK_OAK_LOG || mat == Material.STRIPPED_JUNGLE_LOG
+				|| mat == Material.STRIPPED_OAK_LOG || mat == Material.STRIPPED_SPRUCE_LOG;
 	}
 
 	public boolean isLeave(Material mat) {
-		if (mat == Material.LEAVES || mat == Material.LEAVES_2)
-			return true;
-		return false;
+		return mat == Material.ACACIA_LEAVES || mat == Material.BIRCH_LEAVES || mat == Material.DARK_OAK_LEAVES
+				|| mat == Material.JUNGLE_LEAVES || mat == Material.OAK_LEAVES || mat == Material.SPRUCE_LEAVES;
 	}
 
 	public void timberLeavesAt(Location loc) {
@@ -187,32 +201,41 @@ public class Timbermod extends JavaPlugin implements Listener {
 	}
 
 	public void breakLeaves(Location loca) {
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() + 1);
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setZ(loca.getBlockZ() + 1);
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() - 1);
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() - 1);
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setZ(loca.getBlockZ() - 1);
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setZ(loca.getBlockZ() - 1);
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() + 1);
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() + 1);
-		if (isLeave(loca.getBlock().getType()))
+		if (isLeave(loca.getBlock().getType())) {
 			loca.getBlock().breakNaturally();
+		}
 		loca.setX(loca.getBlockX() - 1);
 		loca.setZ(loca.getBlockZ() + 1);
 	}
